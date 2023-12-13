@@ -24,7 +24,7 @@ const Search = () => {
                 <input placeholder="Where?" />
             </div>
             <div className="search-submit">
-                <button className="search-button">Search</button>
+                <a href="1">Search</a>
             </div>
         </section>
     )
