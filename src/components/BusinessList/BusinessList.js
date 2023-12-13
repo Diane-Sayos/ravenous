@@ -4,16 +4,12 @@ import Business from '../Business/Business.js';
 import "./BusinessList.css";
 
 
-
-
-const BusinessList = () => {
+const BusinessList = ({businesses}) => {
     return (
         <section className="business-list">
-            <Business />
-            <Business />
-            <Business />
-            <Business />
-            <Business />
+            {businesses.map((business) => {
+                return <Business business={business} key={business.name} />
+            })}
         </section>
     )
 };

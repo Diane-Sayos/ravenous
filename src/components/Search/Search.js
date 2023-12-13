@@ -1,31 +1,67 @@
 //import css
-import "./Search.css";
+import styles from "./Search.css";
+//import useState
+import { useState } from 'react';
 
 const sortByOptions = {
     "Best Match": "best_match",
     "Highest Rated": "rating",
     "Most Reviewed": "review_count",
 };
+//searchyelp as props
+const Search = ({ searchYelp }) => {
+    
+    const [term, setTerm] = useState('');
+    const [location, setLocation] = useState('');
+    const [option, setOption] = useState('');
 
-const Search = () => {
+    //check which option is selected, and mark active
+    const setActiveOption = (sortOption) => {
+        if(option === sortOption) {
+            return styles.active;
+        }
+        return "";
+    };
+
+    //handle changes
+    const handleTermChange = (e) => {
+        setTerm(e.target.value)
+    };
+    const handleLocationChange = (e) => {
+        setLocation(e.target.value)
+    };
+    const handleOptionChange = (e) => {
+        setOption(e.target.value)
+    };
+
+    //mapping lists
     const renderSortByOptions = () => {
         return Object.keys(sortByOptions).map((sortByOption) => {
             let sortValue = sortByOptions[sortByOption];
-            return <li key={sortValue}>{sortByOption}</li>
+            return <li className={setActiveOption(sortValue)} key={sortValue} onClick={handleOptionChange}>{sortByOption}</li>
         });
     }
+
+    //handle submit
+    const handleSearch = (e) => {
+        e.preventDefault();
+        searchYelp(term, location, option);
+    }
+
     return (
-        <section className="search">
-            <div className="search-options">
+        <section className={styles.search}>
+            <div className={styles.search-options}>
                 <ul>{renderSortByOptions()}</ul>
             </div>
-            <div className="search-inputs">
-                <input placeholder="Search Businesses" />
-                <input placeholder="Where?" />
-            </div>
-            <div className="search-submit">
-                <a href="1">Search</a>
-            </div>
+            <form onSubmit={handleSearch}>
+                <div className={styles.search-inputs}>
+                    <input placeholder="Search Businesses" value={term} onChange={handleTermChange}/>
+                    <input placeholder="Where?" value={location} onChange={handleLocationChange}/>
+                </div>
+                <div className={styles.search-submit}>
+                    <a href="1">Search</a>
+                </div>
+            </form>
         </section>
     )
 };
