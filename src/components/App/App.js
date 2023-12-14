@@ -3,25 +3,17 @@ import './App.css';
 //import components
 import BusinessList from "../BusinessList/BusinessList.js";
 import Search from "../Search/Search.js";
-
-const businessModel = {
-  name: "Pitanga",
-  imageSrc: "./background_search_mobile.jpg",
-  address: "207 Starr Street",
-  city: "Brooklyn",
-  state: "NY",
-  zipCode: "11237",
-  rating: 4.0,
-  reviewCount: 30,
-  category: "Brazilian",
-}
-
-const businesses = [businessModel, businessModel, businessModel, businessModel, businessModel];
+//import api
+import Yelp from "../../utils/Yelp.js";
+//import useState
+import { useState } from 'react';
 
 
 function App() {
-  const searchYelp = (term, location, option) => {
-    console.log(`Searching Yelp with term: ${term}, location: ${location}, option: ${option}!`)
+  const [businesses, setBusinesses] = useState([]);
+  const searchYelp = async(term, location, option) => {
+    const businesses = await Yelp.search(term, location, option);
+    setBusinesses(businesses);
   }
   return (
     <div className="App">

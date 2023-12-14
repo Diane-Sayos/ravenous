@@ -34,9 +34,6 @@ const Search = (props) => {
     const handleSearch = (e) => {
         e.preventDefault();
         props.searchYelp(term,location,option);
-        setTerm('')
-        setLocation('')
-        setOption('best_match');
     }
 
     return (

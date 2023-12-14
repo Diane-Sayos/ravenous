@@ -6,7 +6,7 @@ const Business = ({ business }) => {
     return (
         <section className="business">
             <div className="image-container">
-                <img src="#" alt="#" />
+                <img src={business.imageSrc} alt="" />
             </div>
             <h2>{business.name}</h2>
             <div className="business-info">
