@@ -1,24 +1,20 @@
 //import css
-import styles from "./Search.css";
+import "./Search.css";
 //import useState
 import { useState } from 'react';
 
-const sortByOptions = {
-    "Best Match": "best_match",
-    "Highest Rated": "rating",
-    "Most Reviewed": "review_count",
-};
+
 //searchyelp as props
-const Search = ({ searchYelp }) => {
+const Search = (props) => {
     
     const [term, setTerm] = useState('');
     const [location, setLocation] = useState('');
-    const [option, setOption] = useState('');
+    const [option, setOption] = useState('best_match');
 
     //check which option is selected, and mark active
     const setActiveOption = (sortOption) => {
         if(option === sortOption) {
-            return styles.active;
+            return "active";
         }
         return "";
     };
@@ -30,36 +26,35 @@ const Search = ({ searchYelp }) => {
     const handleLocationChange = (e) => {
         setLocation(e.target.value)
     };
-    const handleOptionChange = (e) => {
-        setOption(e.target.value)
+    const handleOptionChange = (option) => {
+        setOption(option)
     };
-
-    //mapping lists
-    const renderSortByOptions = () => {
-        return Object.keys(sortByOptions).map((sortByOption) => {
-            let sortValue = sortByOptions[sortByOption];
-            return <li className={setActiveOption(sortValue)} key={sortValue} onClick={handleOptionChange}>{sortByOption}</li>
-        });
-    }
 
     //handle submit
     const handleSearch = (e) => {
         e.preventDefault();
-        searchYelp(term, location, option);
+        props.searchYelp(term,location,option);
+        setTerm('')
+        setLocation('')
+        setOption('best_match');
     }
 
     return (
-        <section className={styles.search}>
-            <div className={styles.search-options}>
-                <ul>{renderSortByOptions()}</ul>
+        <section className="search">
+            <div className="search-options">
+                <ul>
+                    <li className={setActiveOption("best_match")} key="best_match" onClick={() => handleOptionChange("best_match")}>Best Match</li>
+                    <li className={setActiveOption("rating")} key="rating" onClick={() => handleOptionChange("rating")}>Highest Rated</li>
+                    <li className={setActiveOption("review_count")} key="review_count" onClick={() => handleOptionChange("review_count")}>Most Reviewed</li>
+                </ul>
             </div>
             <form onSubmit={handleSearch}>
-                <div className={styles.search-inputs}>
+                <div className="search-inputs">
                     <input placeholder="Search Businesses" value={term} onChange={handleTermChange}/>
                     <input placeholder="Where?" value={location} onChange={handleLocationChange}/>
                 </div>
-                <div className={styles.search-submit}>
-                    <a href="1">Search</a>
+                <div className="search-submit">
+                    <button type="submit" >Search</button>
                 </div>
             </form>
         </section>

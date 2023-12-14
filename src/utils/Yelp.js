@@ -1,0 +1,3 @@
+const client_id = "tjgv_mBC9RJxhZnUkhZ6DQ"
+const api_key = "zUeeHBgHuXrvBDBFDv5h8nW3-E6vswqm04ogbOGxF-78K3h8e8x3sA59dKdfYNHA0nB1ANkm31u4w_bPSaX3I6eiImxTiJsAxZr6KZK3DWO8Y1YhTGqOMI6ANIR6ZXYx"
+
